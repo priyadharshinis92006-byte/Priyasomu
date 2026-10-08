@@ -1,0 +1,167 @@
+students = []
+
+
+def add_student():
+    print("\n--- Add Student ---")
+
+    name = input("Enter student name: ")
+    roll_no = input("Enter roll number: ")
+    department = input("Enter department: ")
+
+    marks1 = float(input("Enter mark 1: "))
+    marks2 = float(input("Enter mark 2: "))
+    marks3 = float(input("Enter mark 3: "))
+
+    total = marks1 + marks2 + marks3
+    average = total / 3
+
+    if average >= 90:
+        grade = "A+"
+    elif average >= 80:
+        grade = "A"
+    elif average >= 70:
+        grade = "B"
+    elif average >= 60:
+        grade = "C"
+    elif average >= 50:
+        grade = "D"
+    else:
+        grade = "F"
+
+    student = {
+        "name": name,
+        "roll_no": roll_no,
+        "department": department,
+        "mark1": marks1,
+        "mark2": marks2,
+        "mark3": marks3,
+        "total": total,
+        "average": average,
+        "grade": grade
+    }
+
+    students.append(student)
+
+    print("\nStudent added successfully!")
+    print("Total:", total)
+    print("Average:", round(average, 2))
+    print("Grade:", grade)
+
+
+def display_students():
+    print("\n--- Student Details ---")
+
+    if len(students) == 0:
+        print("No students found.")
+        return
+
+    for student in students:
+        print("\n-------------------------")
+        print("Name       :", student["name"])
+        print("Roll No    :", student["roll_no"])
+        print("Department :", student["department"])
+        print("Mark 1     :", student["mark1"])
+        print("Mark 2     :", student["mark2"])
+        print("Mark 3     :", student["mark3"])
+        print("Total      :", student["total"])
+        print("Average    :", round(student["average"], 2))
+        print("Grade      :", student["grade"])
+
+
+def search_student():
+    print("\n--- Search Student ---")
+
+    roll_no = input("Enter roll number: ")
+
+    found = False
+
+    for student in students:
+        if student["roll_no"] == roll_no:
+            print("\nStudent Found!")
+            print("Name       :", student["name"])
+            print("Roll No    :", student["roll_no"])
+            print("Department :", student["department"])
+            print("Total      :", student["total"])
+            print("Average    :", round(student["average"], 2))
+            print("Grade      :", student["grade"])
+
+            found = True
+            break
+
+    if not found:
+        print("Student not found.")
+
+
+def delete_student():
+    print("\n--- Delete Student ---")
+
+    roll_no = input("Enter roll number: ")
+
+    for student in students:
+        if student["roll_no"] == roll_no:
+            students.remove(student)
+            print("Student deleted successfully!")
+            return
+
+    print("Student not found.")
+
+
+def show_topper():
+    print("\n--- Class Topper ---")
+
+    if len(students) == 0:
+        print("No students available.")
+        return
+
+    topper = students[0]
+
+    for student in students:
+        if student["average"] > topper["average"]:
+            topper = student
+
+    print("Name       :", topper["name"])
+    print("Roll No    :", topper["roll_no"])
+    print("Department :", topper["department"])
+    print("Average    :", round(topper["average"], 2))
+    print("Grade      :", topper["grade"])
+
+
+def main():
+    while True:
+        print("\n==============================")
+        print("     STUDENT MANAGEMENT")
+        print("==============================")
+        print("1. Add Student")
+        print("2. Display Students")
+        print("3. Search Student")
+        print("4. Delete Student")
+        print("5. Show Topper")
+        print("6. Exit")
+        print("==============================")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            add_student()
+
+        elif choice == "2":
+            display_students()
+
+        elif choice == "3":
+            search_student()
+
+        elif choice == "4":
+            delete_student()
+
+        elif choice == "5":
+            show_topper()
+
+        elif choice == "6":
+            print("Thank you!")
+            break
+
+        else:
+            print("Invalid choice. Try again.")
+
+
+main()
